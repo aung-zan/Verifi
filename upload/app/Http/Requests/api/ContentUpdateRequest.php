@@ -6,13 +6,14 @@ use App\Services\ContentService;
 
 class ContentUpdateRequest extends BaseRequest
 {
-    public function __construct(private ContentService $contentService)
-    {
-        //
-    }
+    private ?ContentService $contentService = null;
 
     public function authorize(): bool
     {
+        if (! $this->contentService) {
+            $this->contentService = app(ContentService::class);
+        }
+
         $contentId = $this->route('id');
         $userId = (int) auth()->guard('api')->id();
 

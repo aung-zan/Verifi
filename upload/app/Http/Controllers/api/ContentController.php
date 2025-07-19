@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\api\ContentCreateRequest;
 use App\Http\Requests\api\ContentUpdateRequest;
-use App\Http\Requests\ContentDeleteRequest;
+use App\Http\Requests\api\ContentDeleteRequest;
 use App\Http\Resources\ContentCollection;
 use App\Http\Resources\ContentResource;
 use App\Services\ContentService;

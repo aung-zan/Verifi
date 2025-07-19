@@ -56,9 +56,11 @@ class ContentService
             'content' => $content->content
         ]);
 
-        $rabbitmq = new RabbitMQService();
-        $rabbitmq->sendWithDirectExchange(env('RABBITMQ_EXCHANGE'), 'content', $message);
-        $rabbitmq->close();
+        if (env('APP_ENV') !== 'testing') {
+            $rabbitmq = new RabbitMQService();
+            $rabbitmq->sendWithDirectExchange(env('RABBITMQ_EXCHANGE'), 'content', $message);
+            $rabbitmq->close();
+        }
 
         return $content;
     }
