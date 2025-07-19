@@ -1,0 +1,52 @@
+services:
+  laravel-app:
+    container_name: upload
+    image: aungzan/ubuntu-php8.3-apache-sql
+    ports:
+      - '443:443'
+    volumes:
+      - './upload/:/var/www/html'
+    depends_on:
+      - express-app
+      - postgres
+
+  express-app:
+    container_name: check
+    build:
+      context: ./check
+      dockerfile: ./check/Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./check:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      postgres:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
+
+  postgres:
+    container_name: pgsql
+    image: postgres:15-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: 'aungminzan'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'verifi'
+
+  rabbitmq:
+    container_name: verifi-rabbitmq
+    image: rabbitmq:4.0-management
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 5s
+      timeout: 10s
+      retries: 5

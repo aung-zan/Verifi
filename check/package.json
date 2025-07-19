@@ -1,0 +1,22 @@
+{
+  "name": "check",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Aung Min Zan",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.8",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "pg-promise": "^11.14.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
