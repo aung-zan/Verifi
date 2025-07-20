@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\api\UserUpdateRequest;
+use App\Http\Resources\UserResource;
 use App\Services\UserService;
 
 class UserController extends Controller
@@ -28,7 +29,7 @@ class UserController extends Controller
         // User info.
         return response()->json([
             'success' => true,
-            'data' => $user
+            'data' => new UserResource($user)
         ]);
     }
 
@@ -48,7 +49,7 @@ class UserController extends Controller
         // Updated successfully.
         return response()->json([
             'success' => true,
-            'data' => $user
+            'data' => new UserResource($user)
         ]);
     }
 }

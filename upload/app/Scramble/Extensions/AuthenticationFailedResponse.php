@@ -32,7 +32,7 @@ class AuthenticationFailedResponse extends OperationExtension
     private function createResponseSchema($methodName): Schema
     {
         $examples = $methodName === 'login' ? ['Email or Password is wrong.']
-            : ['Token not provided.', 'The token has been blacklisted.'];
+            : ['Token not provided.', 'Token has expired.', 'The token has been blacklisted.'];
 
         $response = new ObjectType();
 
