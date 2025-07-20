@@ -23,6 +23,10 @@ class Content extends Model
         'status'
     ];
 
+    protected $attributes = [
+        'status' => 0
+    ];
+
     /**
      * Get the attributes that should be cast.
      *
