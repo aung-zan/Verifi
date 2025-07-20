@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Collection;
 class ContentService
 {
     private $db;
-    protected $allowedColumns = ['status'];
 
     public function __construct(ContentRepository $contentRepository)
     {
@@ -20,9 +19,9 @@ class ContentService
      * Return the content collection.
      *
      * @param array $data
-     * @return Collection|string
+     * @return Collection
      */
-    public function getContentList(array $data): Collection|string
+    public function getContentList(array $data): Collection
     {
         $filter = [];
         $search = [];
@@ -31,10 +30,6 @@ class ContentService
 
         // filter with only status. can move to trait.
         foreach ($data['filter'] as $column => $value) {
-            if (!in_array($column, $this->allowedColumns)) {
-                return $column;
-            }
-
             $filter[$column] = (int) $value;
         }
 

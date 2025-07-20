@@ -23,6 +23,7 @@ class AuthController extends Controller
      * @unauthenticated.
      *
      * @param UserCreateRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function register(UserCreateRequest $request)
     {
@@ -30,6 +31,7 @@ class AuthController extends Controller
 
         $user = $this->userService->createUser($filteredData);
 
+        // Created successfully.
         return response()->json([
             'success' => true,
             'data' => $user
@@ -42,6 +44,7 @@ class AuthController extends Controller
      * @unauthenticated.
      *
      * @param LoginRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function login(LoginRequest $request)
     {
@@ -50,6 +53,7 @@ class AuthController extends Controller
         if ($token = Auth::guard('api')->attempt($credentials)) {
             $user = auth()->guard('api')->user();
 
+            // Login successfully.
             return response()->json([
                 'success' => true,
                 'data' => [
@@ -70,11 +74,14 @@ class AuthController extends Controller
 
     /**
      * Logout the authenticated user.
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function logout()
     {
         Auth::guard('api')->logout();
 
+        // Logout successfully.
         return response()->json([
             'success' => true,
             'message' => 'Successfully logout.'

@@ -17,12 +17,15 @@ class UserController extends Controller
 
     /**
      * Display the authenticated user's info.
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show()
     {
         $userId = auth()->guard('api')->id();
         $user = $this->userService->getUser($userId);
 
+        // User info.
         return response()->json([
             'success' => true,
             'data' => $user
@@ -33,6 +36,7 @@ class UserController extends Controller
      * Update the authenticated user's info.
      *
      * @param UserUpdateRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UserUpdateRequest $request)
     {
@@ -41,6 +45,7 @@ class UserController extends Controller
 
         $user = $this->userService->updateUser($userId, $filteredData);
 
+        // Updated successfully.
         return response()->json([
             'success' => true,
             'data' => $user

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\api\ContentCreateRequest;
 use App\Http\Requests\api\ContentUpdateRequest;
 use App\Http\Requests\api\ContentDeleteRequest;
+use App\Http\Requests\api\ContentListRequest;
 use App\Http\Resources\ContentCollection;
 use App\Http\Resources\ContentResource;
 use App\Services\ContentService;
@@ -21,31 +22,31 @@ class ContentController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
+     * @param ContentListRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(ContentListRequest $request)
     {
         $data = [
             'user_id' => auth()->guard('api')->id(),
-            'filter' => request()->query()
+            'filter' => $request->validated()
         ];
 
         $contentList = $this->contentService->getContentList($data);
 
-        if (is_string($contentList)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Invalid filter field: ' . $contentList
-            ], 400);
-        }
-
+        // List of content info.
         return response()->json([
             'success' => true,
             'data' => new ContentCollection($contentList)
-        ]);
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param ContentCreateRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(ContentCreateRequest $request)
     {
@@ -54,28 +55,37 @@ class ContentController extends Controller
 
         $content = $this->contentService->createContent($filteredData);
 
+        // Created successfully.
         return response()->json([
             'success' => true,
-            'data' => $content
-        ]);
+            'data' => new ContentResource($content)
+        ], 201);
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(int $id)
     {
         $userId = auth()->guard('api')->id();
         $content = $this->contentService->getContentWithUserId($id, $userId);
 
+        // Content Info
         return response()->json([
             'success' => true,
             'data' => new ContentResource($content)
-        ]);
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param ContentUpdateRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(ContentUpdateRequest $request, int $id)
     {
@@ -83,22 +93,28 @@ class ContentController extends Controller
 
         $content = $this->contentService->updateContent($id, $filteredData);
 
+        // Updated successfully.
         return response()->json([
             'success' => true,
-            'data' => $content
-        ]);
+            'data' => new ContentResource($content)
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param ContentDeleteRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(ContentDeleteRequest $request, int $id)
     {
         $this->contentService->deleteContent($id);
 
+        // Deleted successfully.
         return response()->json([
             'success' => true,
             'message' => 'The content was deleted.'
-        ]);
+        ], 200);
     }
 }

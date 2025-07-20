@@ -28,6 +28,10 @@ class ValidationFailedRespond extends OperationExtension
                     )
             );
         }
+
+        if ($operation->method === 'delete') {
+            $this->removeValidationFromDelete($operation);
+        }
     }
 
     private function createResponseSchema(): Schema
@@ -55,5 +59,22 @@ class ValidationFailedRespond extends OperationExtension
         $response->setRequired(['success', 'message', 'errors']);
 
         return Schema::fromType($response);
+    }
+
+    private function removeValidationFromDelete(Operation $operation): void
+    {
+        $responses = $operation->responses;
+        $unwantedResponse = null;
+
+        foreach ($responses as $key => $value) {
+            if (
+                $value instanceof \Dedoc\Scramble\Support\Generator\Reference &&
+                $value->fullName == '\Illuminate\Validation\ValidationException'
+            ) {
+                $unwantedResponse = $key;
+            }
+        }
+
+        unset($operation->responses[$unwantedResponse]);
     }
 }
