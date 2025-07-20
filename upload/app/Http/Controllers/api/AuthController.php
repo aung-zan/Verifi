@@ -17,6 +17,13 @@ class AuthController extends Controller
         $this->userService = $userService;
     }
 
+    /**
+     * Register the users.
+     *
+     * @unauthenticated.
+     *
+     * @param UserCreateRequest $request
+     */
     public function register(UserCreateRequest $request)
     {
         $filteredData = $request->validated();
@@ -29,6 +36,13 @@ class AuthController extends Controller
         ], 201);
     }
 
+    /**
+     * Authenticate and login the user.
+     *
+     * @unauthenticated.
+     *
+     * @param LoginRequest $request
+     */
     public function login(LoginRequest $request)
     {
         $credentials = $request->validated();
@@ -54,6 +68,9 @@ class AuthController extends Controller
         ], 401);
     }
 
+    /**
+     * Logout the authenticated user.
+     */
     public function logout()
     {
         Auth::guard('api')->logout();

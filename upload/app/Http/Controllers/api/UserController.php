@@ -15,6 +15,9 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
+    /**
+     * Display the authenticated user's info.
+     */
     public function show()
     {
         $userId = auth()->guard('api')->id();
@@ -26,6 +29,11 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Update the authenticated user's info.
+     *
+     * @param UserUpdateRequest $request
+     */
     public function update(UserUpdateRequest $request)
     {
         $userId = auth()->guard('api')->id();
