@@ -32,7 +32,7 @@ class AuthLoginTest extends TestCase
                     'access_token',
                     'token_type',
                     'expires_in',
-                ]
+                ],
             ]);
     }
 
@@ -53,7 +53,7 @@ class AuthLoginTest extends TestCase
         $response->assertStatus(401)
             ->assertJson([
                 'success' => false,
-                'message' => 'Email or password is wrong.'
+                'message' => 'Email or password is wrong.',
             ]);
     }
 }

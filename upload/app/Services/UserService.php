@@ -16,9 +16,6 @@ class UserService
 
     /**
      * Create the user.
-     *
-     * @param array $data
-     * @return User
      */
     public function createUser(array $data): User
     {
@@ -27,9 +24,6 @@ class UserService
 
     /**
      * Return the specific user by id or 404.
-     *
-     * @param int $id
-     * @return ?User
      */
     public function getUser(int $id): ?User
     {
@@ -39,8 +33,6 @@ class UserService
     /**
      * Update the specific user.
      *
-     * @param int $id
-     * @param array $data
      * @return ?User
      */
     public function updateUser(int $id, array $data)

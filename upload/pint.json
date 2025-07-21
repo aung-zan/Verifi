@@ -1,0 +1,11 @@
+{
+    "preset": "psr12",
+    "rules": {
+        "concat_space": {
+            "spacing": "one"
+        },
+        "php_unit_method_casing": {
+            "case": "camel_case"
+        }
+    }
+}

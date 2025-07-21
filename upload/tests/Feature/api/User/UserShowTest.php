@@ -12,7 +12,7 @@ class UserShowTest extends TestCase
     public function testAuthenticatedUserCanViewProfile()
     {
         $user = \App\Models\User::factory()->create([
-            'email' => 'test@mail.com'
+            'email' => 'test@mail.com',
         ]);
         /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         $token = auth('api')->login($user);
@@ -26,7 +26,7 @@ class UserShowTest extends TestCase
                 'data' => [
                     'name' => $user->name,
                     'email' => $user->email,
-                ]
+                ],
             ]);
     }
 

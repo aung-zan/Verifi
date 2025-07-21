@@ -18,9 +18,6 @@ class BaseRequest extends FormRequest
 
     /**
      * Customize the api validation response.
-     *
-     * @param Validator $validator
-     * @return void
      */
     protected function failedValidation(Validator $validator): void
     {
@@ -29,7 +26,7 @@ class BaseRequest extends FormRequest
         $response = [
             'success' => false,
             'message' => 'Validation failed.',
-            'errors' => $this->formatErrors($errors->toArray())
+            'errors' => $this->formatErrors($errors->toArray()),
         ];
 
         throw new HttpResponseException(response()->json($response, 422));
@@ -38,7 +35,6 @@ class BaseRequest extends FormRequest
     /**
      * Format the api error messages.
      *
-     * @param array $errors
      * @return array $formatted
      */
     private function formatErrors(array $errors): array
@@ -48,7 +44,7 @@ class BaseRequest extends FormRequest
         foreach ($errors as $field => $message) {
             $formatted[] = [
                 'field' => $field,
-                'message' => $message[0]
+                'message' => $message[0],
             ];
         }
 

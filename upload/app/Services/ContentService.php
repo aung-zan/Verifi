@@ -17,9 +17,6 @@ class ContentService
 
     /**
      * Return the content collection.
-     *
-     * @param array $data
-     * @return Collection
      */
     public function getContentList(array $data): Collection
     {
@@ -38,9 +35,6 @@ class ContentService
 
     /**
      * Create the content.
-     *
-     * @param array $data
-     * @return Content
      */
     public function createContent(array $data): Content
     {
@@ -48,7 +42,8 @@ class ContentService
 
         $message = json_encode([
             'id' => $content->id,
-            'content' => $content->content
+            'user_id' => $content->user_id,
+            'content' => $content->content,
         ]);
 
         if (env('APP_ENV') !== 'testing') {
@@ -62,9 +57,6 @@ class ContentService
 
     /**
      * Return the specific content by id or 404.
-     *
-     * @param int $id
-     * @return ?Content
      */
     public function getContent(int $id): ?Content
     {
@@ -73,10 +65,6 @@ class ContentService
 
     /**
      * Return the specific content by id and user id or 404.
-     *
-     * @param int $id
-     * @param int $userId
-     * @return ?Content
      */
     public function getContentWithUserId(int $id, int $userId): ?Content
     {
@@ -85,10 +73,6 @@ class ContentService
 
     /**
      * Update the specific content.
-     *
-     * @param int $id
-     * @param array $data
-     * @return ?Content
      */
     public function updateContent(int $id, array $data): ?Content
     {
@@ -97,9 +81,6 @@ class ContentService
 
     /**
      * Delete the specific content.
-     *
-     * @param int $id
-     * @return void
      */
     public function deleteContent(int $id): void
     {

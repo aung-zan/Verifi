@@ -111,6 +111,6 @@ return [
         App\Scramble\Extensions\ModifyOperationResponse::class,
         App\Scramble\Extensions\AuthenticationFailedResponse::class,
         App\Scramble\Extensions\ValidationFailedRespond::class,
-        App\Scramble\Extensions\NotFoundRespond::class
+        App\Scramble\Extensions\NotFoundRespond::class,
     ],
 ];

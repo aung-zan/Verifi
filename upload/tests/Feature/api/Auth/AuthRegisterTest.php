@@ -27,7 +27,7 @@ class AuthRegisterTest extends TestCase
                 'data' => [
                     'name' => 'Test User',
                     'email' => 'test@mail.com',
-                ]
+                ],
             ]);
 
         $this->assertDatabaseHas('users', [
@@ -53,7 +53,7 @@ class AuthRegisterTest extends TestCase
         $response->assertStatus(422)
             ->assertJsonFragments([
                 ['success' => false],
-                ['field' => 'email']
+                ['field' => 'email'],
             ]);
     }
 }

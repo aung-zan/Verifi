@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\ContentStatus;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,7 +19,7 @@ class Content extends Model
     protected $fillable = [
         'user_id',
         'content',
-        'status'
+        'status',
     ];
 
     /**
@@ -29,7 +28,7 @@ class Content extends Model
      * @var array
      */
     protected $attributes = [
-        'status' => 0
+        'status' => 0,
     ];
 
     /**
@@ -41,7 +40,7 @@ class Content extends Model
     {
         return [
             'created_at' => 'datetime:Y-m-d H:i:s',
-            'updated_at' => 'datetime:Y-m-d H:i:s'
+            'updated_at' => 'datetime:Y-m-d H:i:s',
         ];
     }
 

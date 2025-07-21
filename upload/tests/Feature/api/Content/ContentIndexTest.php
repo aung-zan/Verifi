@@ -12,7 +12,7 @@ class ContentIndexTest extends TestCase
     public function testAuthenticatedUserCanListContent()
     {
         $user = \App\Models\User::factory()->create([
-            'email' => 'test@mail.com'
+            'email' => 'test@mail.com',
         ]);
         /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         $token = auth('api')->login($user);
@@ -34,9 +34,9 @@ class ContentIndexTest extends TestCase
                             'user_id',
                             'created_at',
                             'updated_at',
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]);
     }
 
@@ -50,16 +50,16 @@ class ContentIndexTest extends TestCase
     public function testFilterListContent()
     {
         $user = \App\Models\User::factory()->create([
-            'email' => 'test@mail.com'
+            'email' => 'test@mail.com',
         ]);
         /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         $token = auth('api')->login($user);
 
         \App\Models\Content::factory()->for($user)->create([
-            'status' => 0
+            'status' => 0,
         ]);
         \App\Models\Content::factory()->for($user)->create([
-            'status' => 1
+            'status' => 1,
         ]);
 
         $response = $this->withHeader('Authorization', "Bearer $token")
@@ -77,9 +77,9 @@ class ContentIndexTest extends TestCase
                             'user_id',
                             'created_at',
                             'updated_at',
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\api;
 
-use App\Http\Requests\api\BaseRequest;
 use App\Services\ContentService;
 
 class ContentDeleteRequest extends BaseRequest

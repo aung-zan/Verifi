@@ -11,6 +11,7 @@ class ContentUpdateRequest extends BaseRequest
     public function authorize(): bool
     {
         if (! $this->contentService) {
+            // for testing environment.
             $this->contentService = app(ContentService::class);
         }
 
@@ -30,9 +31,10 @@ class ContentUpdateRequest extends BaseRequest
         return [
             /**
              * The content that is on the internet will be verified.
+             *
              * @example Last night someone is died in the car accident.
              */
-            'content' => ['required']
+            'content' => ['required'],
         ];
     }
 }

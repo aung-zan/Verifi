@@ -18,7 +18,7 @@ class ContentFactory extends Factory
     {
         return [
             'content' => fake()->realText(),
-            'status' => 0
+            'status' => 0,
         ];
     }
 }

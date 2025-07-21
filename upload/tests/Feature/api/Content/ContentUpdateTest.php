@@ -12,7 +12,7 @@ class ContentUpdateTest extends TestCase
     public function testAuthenticatedUserCanUpdateContent()
     {
         $user = \App\Models\User::factory()->create([
-            'email' => 'test@mail.com'
+            'email' => 'test@mail.com',
         ]);
         /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         $token = auth('api')->login($user);
@@ -33,7 +33,7 @@ class ContentUpdateTest extends TestCase
                     'id' => $content->id,
                     'content' => 'Updated content',
                     'user_id' => $user->id,
-                ]
+                ],
             ]);
 
         $this->assertDatabaseHas('contents', [
@@ -45,7 +45,7 @@ class ContentUpdateTest extends TestCase
     public function testUnauthorizedUserCannotUpdateContent()
     {
         $user = \App\Models\User::factory()->create([
-            'email' => 'test@mail.com'
+            'email' => 'test@mail.com',
         ]);
 
         $content = \App\Models\Content::factory()->for($user)->create();

@@ -8,6 +8,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 class RabbitMQService
 {
     private $connection;
+
     private $channel;
 
     public function __construct()

@@ -12,13 +12,14 @@ class UserUpdateTest extends TestCase
     public function testAuthenticatedUserCanUpdateProfile()
     {
         $user = \App\Models\User::factory()->create([
-            'email' => 'test@mail.com'
+            'email' => 'test@mail.com',
         ]);
         /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         $token = auth('api')->login($user);
 
         $payload = [
             'name' => 'Updated Name',
+            'sonar_key' => 'sonar key'
         ];
 
         $response = $this->withHeader('Authorization', "Bearer $token")
@@ -30,7 +31,7 @@ class UserUpdateTest extends TestCase
                 'data' => [
                     'name' => 'Updated Name',
                     'email' => $user->email,
-                ]
+                ],
             ]);
 
         $this->assertDatabaseHas('users', [

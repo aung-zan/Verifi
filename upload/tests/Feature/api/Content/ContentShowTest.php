@@ -12,7 +12,7 @@ class ContentShowTest extends TestCase
     public function testAuthenticatedUserCanViewContent()
     {
         $user = \App\Models\User::factory()->create([
-            'email' => 'test@mail.com'
+            'email' => 'test@mail.com',
         ]);
         /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         $token = auth('api')->login($user);
@@ -29,14 +29,14 @@ class ContentShowTest extends TestCase
                     'id' => $content->id,
                     'content' => $content->content,
                     'user_id' => $user->id,
-                ]
+                ],
             ]);
     }
 
     public function testUnauthorizedUserCannotViewContent()
     {
         $user = \App\Models\User::factory()->create([
-            'email' => 'test@mail.com'
+            'email' => 'test@mail.com',
         ]);
 
         $content = \App\Models\Content::factory()->for($user)->create();

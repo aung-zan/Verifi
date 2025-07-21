@@ -14,14 +14,16 @@ class LoginRequest extends BaseRequest
         return [
             /**
              * The email of the user.
+             *
              * @example test@mail.com
              */
             'email' => ['required', 'email:dns'],
             /**
              * The password of the user.
+             *
              * @example password
              */
-            'password' => ['required', 'min:8']
+            'password' => ['required', 'min:8'],
         ];
     }
 }

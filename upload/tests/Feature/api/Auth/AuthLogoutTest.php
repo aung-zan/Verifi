@@ -12,7 +12,7 @@ class AuthLogoutTest extends TestCase
     public function testUserCanLogout()
     {
         $user = \App\Models\User::factory()->create([
-            'email' => 'test@mail.com'
+            'email' => 'test@mail.com',
         ]);
         /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         $token = auth('api')->login($user);
@@ -23,7 +23,7 @@ class AuthLogoutTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
                 'success' => true,
-                'message' => 'Successfully logout.'
+                'message' => 'Successfully logout.',
             ]);
     }
 }

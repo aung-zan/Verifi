@@ -15,7 +15,7 @@ class ContentListRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'status' => ['sometimes', Rule::enum(ContentStatus::class)]
+            'status' => ['sometimes', Rule::enum(ContentStatus::class)],
         ];
     }
 }

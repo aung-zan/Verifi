@@ -23,7 +23,6 @@ class AuthController extends Controller
      *
      * @unauthenticated.
      *
-     * @param UserCreateRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function register(UserCreateRequest $request)
@@ -35,7 +34,7 @@ class AuthController extends Controller
         // Created successfully.
         return response()->json([
             'success' => true,
-            'data' => new UserResource($user)
+            'data' => new UserResource($user),
         ], 201);
     }
 
@@ -44,7 +43,6 @@ class AuthController extends Controller
      *
      * @unauthenticated.
      *
-     * @param LoginRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function login(LoginRequest $request)
@@ -62,14 +60,14 @@ class AuthController extends Controller
                     'email' => $user->email,
                     'access_token' => $token,
                     'token_type' => 'bearer',
-                    'expires_in' => config('jwt.ttl')
-                ]
+                    'expires_in' => config('jwt.ttl'),
+                ],
             ]);
         }
 
         return response()->json([
             'success' => false,
-            'message' => 'Email or password is wrong.'
+            'message' => 'Email or password is wrong.',
         ], 401);
     }
 
@@ -85,7 +83,7 @@ class AuthController extends Controller
         // Logout successfully.
         return response()->json([
             'success' => true,
-            'message' => 'Successfully logout.'
+            'message' => 'Successfully logout.',
         ]);
     }
 }

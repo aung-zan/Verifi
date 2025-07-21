@@ -29,14 +29,13 @@ class UserController extends Controller
         // User info.
         return response()->json([
             'success' => true,
-            'data' => new UserResource($user)
+            'data' => new UserResource($user),
         ]);
     }
 
     /**
      * Update the authenticated user's info.
      *
-     * @param UserUpdateRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UserUpdateRequest $request)
@@ -49,7 +48,7 @@ class UserController extends Controller
         // Updated successfully.
         return response()->json([
             'success' => true,
-            'data' => new UserResource($user)
+            'data' => new UserResource($user),
         ]);
     }
 }

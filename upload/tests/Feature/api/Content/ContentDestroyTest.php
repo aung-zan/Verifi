@@ -12,7 +12,7 @@ class ContentDestroyTest extends TestCase
     public function testAuthenticatedUserCanDeleteContent()
     {
         $user = \App\Models\User::factory()->create([
-            'email' => 'test@mail.com'
+            'email' => 'test@mail.com',
         ]);
         /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         $token = auth('api')->login($user);
@@ -25,7 +25,7 @@ class ContentDestroyTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
                 'success' => true,
-                'message' => 'The content was deleted.'
+                'message' => 'The content was deleted.',
             ]);
 
         $this->assertDatabaseMissing('contents', [
@@ -36,7 +36,7 @@ class ContentDestroyTest extends TestCase
     public function testUnauthorizedUserCannotDeleteContent()
     {
         $user = \App\Models\User::factory()->create([
-            'email' => 'test@mail.com'
+            'email' => 'test@mail.com',
         ]);
 
         $content = \App\Models\Content::factory()->for($user)->create();

@@ -132,7 +132,7 @@ return [
             'path' => storage_path('logs/database.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'replace_placeholders' => true,
-        ]
+        ],
 
     ],
 
