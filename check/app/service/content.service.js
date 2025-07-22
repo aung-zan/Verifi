@@ -1,28 +1,16 @@
+const { getUser } = require('../../config/psql');
+const { verify } = require('../../config/sonar');
+
 const getContent = async (msg, channel) => {
   try {
     const { id, user_id, content } = JSON.parse(msg.content.toString());
 
-    const url = process.env.URL;
-    const headers = {
-      'Authorization': 'Bearer ' + process.env.KEY,
-      'Content-Type': 'application/json'
-    };
+    const userInfo = await getUser(user_id);
+    const key = userInfo.sonar_key;
 
-    const payload = {
-      model: 'sonar',
-      messages: [
-        { role: 'user', content: process.env.PROMPT + content}
-      ]
-    };
-
-    const response = await fetch(url, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(payload)
-    });
-
-    const data = await response.json();
-    console.log(data);
+    const data = await verify(key, content);
+    const result = data.choices[0].message.content;
+    console.log(result);
 
     channel.ack(msg);
   } catch (error) {

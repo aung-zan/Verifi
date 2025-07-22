@@ -30,7 +30,7 @@ const getUser = async (id) => {
   if (!db) throw new Error('Database is not connected.');
 
   try {
-    const user = await db.one('select id, name, email from users where id = $1', id);
+    const user = await db.one('select id, sonar_key from users where id = $1', id);
     return user;
 
   } catch (error) {
