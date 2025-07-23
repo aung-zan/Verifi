@@ -38,7 +38,29 @@ const getUser = async (id) => {
   }
 }
 
+const updateContent = async (id, status) => {
+  if (!db) throw new Error('Database is not connected.');
+
+  try {
+    await db.query('update contents set status = $1 where id = $2', [status, id]);
+  } catch (error) {
+    throw new Error(`Failed to update the content: ${error}`);
+  }
+}
+
+const saveResult = async (data) => {
+  if (!db) throw new Error('Database is not connected.');
+
+  try {
+    await db.query('insert into content_results values ($1)', [data]);
+  } catch (error) {
+    throw new Error(`Failed to create the result: ${error}`);
+  }
+}
+
 module.exports = {
   connectDB,
-  getUser
+  getUser,
+  updateContent,
+  saveResult
 }

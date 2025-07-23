@@ -6,6 +6,7 @@ use App\Enums\ContentStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Content extends Model
 {
@@ -50,6 +51,14 @@ class Content extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the result of the content.
+     */
+    public function result(): HasOne
+    {
+        return $this->hasOne(ContentResult::class);
     }
 
     public function getStatusAttribute($value): string

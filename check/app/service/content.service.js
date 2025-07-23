@@ -1,5 +1,15 @@
-const { getUser } = require('../../config/psql');
+const { getUser, updateContent, saveResult } = require('../../config/psql');
 const { verify } = require('../../config/sonar');
+const { extractJSONFromMarkdown } = require('../../util/helper');
+
+const resultValue = {
+  True: 0,
+  False: 1,
+  Misleading: 2,
+  Unproven: 3,
+  Mixture: 4,
+  Satire: 5,
+};
 
 const getContent = async (msg, channel) => {
   try {
@@ -8,11 +18,28 @@ const getContent = async (msg, channel) => {
     const userInfo = await getUser(user_id);
     const key = userInfo.sonar_key;
 
-    const data = await verify(key, content);
-    const result = data.choices[0].message.content;
-    console.log(result);
+    // const data = await verify(key, content);
+    // const citations = data.citations;
 
-    channel.ack(msg);
+    // const makrdownText = data.choices[0].message.content;
+    // const jsonText = extractJSONFromMarkdown(makrdownText);
+    // const result = JSON.parse(jsonText);
+    // console.log(result);
+
+    const sample = 'Unproven';
+
+    const sampleData = {
+      content_id: 1,
+      summary: 'Hello World',
+      citations: 'Hello',
+      result: resultValue[sample]
+    };
+    console.log(sampleData);
+
+    await updateContent(id, 1);
+    await saveResult(sampleData);
+
+    // channel.ack(msg);
   } catch (error) {
     console.error('Something went wrong on getting content: ', error);
   }

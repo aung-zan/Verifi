@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ContentResource extends JsonResource
+class ContentResultResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,44 +16,48 @@ class ContentResource extends JsonResource
     {
         return [
             /**
-             * content's id.
+             * result's id.
              *
              * @var int
              *
              * @example 1
+             *
              */
             'id' => $this->id,
             /**
-             * content's user_id.
+             * result's content_id.
              *
              * @var int
              *
              * @example 1
+             *
              */
-            'user_id' => $this->user_id,
+            'content_id' => $this->content_id,
             /**
-             * content.
+             * result
              *
              * @var string
              *
-             * @example Last night, someone died in the car accident.
+             * @example Unproven.
+             *
              */
-            'content' => $this->content,
+            'result' => $this->result,
             /**
-             * content's status.
+             * result's summary
              *
              * @var string
              *
-             * @example in-progress
+             * @example rolem alsum rolem alsum rolem alsum rolem alsum.
              */
-            'status' => $this->status,
+            'summary' => $this->summary,
             /**
-             * content's result.
+             * result's citations.
              *
-             * @var array<string>
+             * @var string
              *
+             * @example https://www.google.com
              */
-            'result' => new ContentResultResource($this->result),
+            'citations' => $this->citations,
             /**
              * content's created_at.
              *

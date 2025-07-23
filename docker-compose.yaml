@@ -14,7 +14,7 @@ services:
     container_name: check
     build:
       context: ./check
-      dockerfile: ./check/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - '3000:3000'
     volumes:
