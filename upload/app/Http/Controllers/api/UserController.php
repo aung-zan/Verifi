@@ -30,7 +30,7 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'data' => new UserResource($user),
-        ]);
+        ], 200);
     }
 
     /**
@@ -49,6 +49,6 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'data' => new UserResource($user),
-        ]);
+        ], 200);
     }
 }

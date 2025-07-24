@@ -38,7 +38,7 @@ class ContentResultResource extends JsonResource
              *
              * @var string
              *
-             * @example Unproven.
+             * @example Unproven
              *
              */
             'result' => $this->result,
@@ -53,11 +53,11 @@ class ContentResultResource extends JsonResource
             /**
              * result's citations.
              *
-             * @var string
+             * @var array<string>
              *
-             * @example https://www.google.com
+             * @example ["https://www.wikipedia.com"]
              */
-            'citations' => $this->citations,
+            'citations' => json_decode($this->citations)?->links,
             /**
              * content's created_at.
              *

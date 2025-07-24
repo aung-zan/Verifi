@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ContentResults;
 use Illuminate\Database\Eloquent\Model;
 
 class ContentResult extends Model
@@ -17,4 +18,9 @@ class ContentResult extends Model
         'citations',
         'result',
     ];
+
+    public function getResultAttribute($value): string
+    {
+        return ContentResults::getText($value);
+    }
 }

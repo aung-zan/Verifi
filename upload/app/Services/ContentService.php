@@ -68,6 +68,13 @@ class ContentService
      */
     public function getContentWithUserId(int $id, int $userId): ?Content
     {
+        // $content = $this->db->getWithUserId($id, $userId);
+        // $result = $content->result;
+        // $citations = json_decode($result->citations)?->links;
+        // \Log::info($citations);
+
+        // return $content;
+
         return $this->db->getWithUserId($id, $userId);
     }
 

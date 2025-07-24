@@ -1,10 +1,10 @@
 const express = require('express');
 require('dotenv').config();
 
-const { connectDB } = require('./config/psql');
+const postgres = require('./config/psql');
 const rabbitmq = require('./config/rabbitmq');
 const routes = require('./routes/web');
-const { getContent } = require('./app/service/content.service');
+const { getContent } = require('./app/services/content.service');
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.use(routes);
 (async () => {
   try {
     // other services
-    await connectDB();
+    await postgres.authenticate();
     await rabbitmq.connect();
     await rabbitmq.consume(getContent);
 

@@ -59,7 +59,7 @@ class ContentController extends Controller
         return response()->json([
             'success' => true,
             'data' => new ContentResource($content),
-        ], 201);
+        ], 202);
     }
 
     /**

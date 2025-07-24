@@ -44,13 +44,11 @@ class ContentResource extends JsonResource
              *
              * @var string
              *
-             * @example in-progress
+             * @example success
              */
             'status' => $this->status,
             /**
              * content's result.
-             *
-             * @var array<string>
              *
              */
             'result' => new ContentResultResource($this->result),

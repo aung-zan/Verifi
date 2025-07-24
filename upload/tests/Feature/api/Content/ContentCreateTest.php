@@ -25,7 +25,7 @@ class ContentCreateTest extends TestCase
         $response = $this->withHeader('Authorization', "Bearer $token")
             ->postJson('/api/content', $payload);
 
-        $response->assertStatus(201)
+        $response->assertStatus(202)
             ->assertJson([
                 'success' => true,
                 'data' => [

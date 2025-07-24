@@ -21,7 +21,7 @@ class AuthController extends Controller
     /**
      * Register the users.
      *
-     * @unauthenticated.
+     * @unauthenticated
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -41,7 +41,7 @@ class AuthController extends Controller
     /**
      * Authenticate and login the user.
      *
-     * @unauthenticated.
+     * @unauthenticated
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -84,6 +84,6 @@ class AuthController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Successfully logout.',
-        ]);
+        ], 200);
     }
 }

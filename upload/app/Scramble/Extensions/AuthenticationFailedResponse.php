@@ -17,16 +17,18 @@ class AuthenticationFailedResponse extends OperationExtension
     {
         $methodName = $routeInfo->methodName();
 
-        $responseSchema = $this->createResponseSchema($methodName);
+        if ($methodName !== 'register') {
+            $responseSchema = $this->createResponseSchema($methodName);
 
-        $operation->addResponse(
-            Response::make(401)
-                ->description('Unauthorized')
-                ->setContent(
-                    'application/json',
-                    $responseSchema
-                )
-        );
+            $operation->addResponse(
+                Response::make(401)
+                    ->description('Unauthorized')
+                    ->setContent(
+                        'application/json',
+                        $responseSchema
+                    )
+            );
+        }
     }
 
     private function createResponseSchema($methodName): Schema
