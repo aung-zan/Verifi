@@ -25,18 +25,7 @@ This project is a web application that allows users to upload content and have i
     cd verifi
     ```
 
-2.  **Set up environment variables:**
-
-    *   Copy the example environment files for both services:
-
-        ```bash
-        cp upload/.env.example upload/.env
-        cp check/.env.example check/.env
-        ```
-
-    *   Update the `.env` files with your specific configurations, such as database credentials and application keys.
-
-3.  **Build and run the services:**
+2.  **Build and run the services:**
 
     ```bash
     docker-compose up -d --build
