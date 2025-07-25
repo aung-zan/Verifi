@@ -1,14 +1,28 @@
 services:
   laravel-app:
     container_name: upload
-    image: aungzan/ubuntu-php8.3-apache-sql
+    build:
+      context: ./upload
+      dockerfile: Dockerfile
     ports:
       - '443:443'
     volumes:
       - './upload/:/var/www/html'
     depends_on:
-      - express-app
-      - postgres
+      postgres:
+        condition: service_healthy
+    command: >
+      bash -c "
+        if [ ! -f /var/www/html/.env ]; then
+          cd /var/www/html &&
+          cp .env.example .env &&
+          composer install &&
+          php artisan key:generate &&
+          php artisan migrate &&
+          php artisan jwt:secret
+        fi &&
+        apache2ctl -D FOREGROUND
+      "
 
   express-app:
     container_name: check
@@ -22,9 +36,17 @@ services:
       - /usr/src/app/node_modules
     depends_on:
       postgres:
-        condition: service_started
+        condition: service_healthy
       rabbitmq:
         condition: service_healthy
+    command: >
+      bash -c "
+        if [ ! -f /usr/src/app/.env ]; then
+          cp .env.example .env &&
+          npm install
+        fi &&
+        npm start
+      "
 
   postgres:
     container_name: pgsql
@@ -35,6 +57,12 @@ services:
       POSTGRES_USER: 'aungminzan'
       POSTGRES_PASSWORD: 'password'
       POSTGRES_DB: 'verifi'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aungminzan -d verifi"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   rabbitmq:
     container_name: verifi-rabbitmq
