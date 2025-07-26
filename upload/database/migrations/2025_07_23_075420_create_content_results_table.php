@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('content_id')->constrained()->onDelete('cascade');
             $table->text('summary');
             $table->text('citations');
-            $table->tinyInteger('result');
+            $table->tinyInteger('type');
             $table->timestamps();
         });
     }

@@ -7,7 +7,7 @@ services:
     ports:
       - '443:443'
     volumes:
-      - './upload/:/var/www/html'
+      - ./upload/:/var/www/html
     depends_on:
       postgres:
         condition: service_healthy
@@ -32,7 +32,7 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - ./check:/usr/src/app
+      - ./check:/usr/src/app:delegated
       - /usr/src/app/node_modules
     depends_on:
       postgres:

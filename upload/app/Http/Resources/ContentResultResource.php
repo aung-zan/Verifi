@@ -34,14 +34,14 @@ class ContentResultResource extends JsonResource
              */
             'content_id' => $this->content_id,
             /**
-             * result
+             * result's type.
              *
              * @var string
              *
              * @example Unproven
              *
              */
-            'result' => $this->result,
+            'type' => $this->type,
             /**
              * result's summary
              *

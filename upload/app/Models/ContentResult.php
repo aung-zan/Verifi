@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\ContentResults;
+use App\Enums\ResultTypes;
 use Illuminate\Database\Eloquent\Model;
 
 class ContentResult extends Model
@@ -16,11 +16,11 @@ class ContentResult extends Model
         'content_id',
         'summary',
         'citations',
-        'result',
+        'type',
     ];
 
-    public function getResultAttribute($value): string
+    public function getTypeAttribute($value): string
     {
-        return ContentResults::getText($value);
+        return ResultTypes::getText($value);
     }
 }

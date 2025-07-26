@@ -23,7 +23,7 @@ const ContentResult = postgres.define('content_results', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  result: {
+  type: {
     type: Sequelize.SMALLINT,
     allowNull: false
   },

@@ -5,14 +5,7 @@ const ContentResult = require('../models/content_result');
 const { verify } = require('../../config/sonar');
 const { extractJSONFromMarkdown } = require('../../util/helper');
 
-const resultValue = {
-  True: 0,
-  False: 1,
-  Misleading: 2,
-  Unproven: 3,
-  Mixture: 4,
-  Satire: 5,
-};
+const { RESULT_TYPE, CONTENT_STATUS } = require('../../util/constant');
 
 const getContent = async (msg, channel) => {
   const { id, user_id, content } = JSON.parse(msg.content.toString());
@@ -23,33 +16,47 @@ const getContent = async (msg, channel) => {
 
     const data = await verify(key, content);
 
-    const citations = JSON.stringify({
-      links: data.citations
-    });
+    const result = extractResult(data);
+    result.content_id = id;
 
-    const makrdownText = data.choices[0].message.content;
-    const result = extractJSONFromMarkdown(makrdownText);
-
-    const resultData = {
-      content_id: id,
-      summary: result.Summary,
-      citations: citations,
-      result: resultValue[result.Verdict]
-    };
-    await ContentResult.create(resultData);
+    await ContentResult.create(result);
 
     await Content.update(
-      { status: 1 },
+      { status: CONTENT_STATUS.Success },
       { where: { id: id }}
     );
 
     channel.ack(msg);
   } catch (error) {
     await Content.update(
-      { status: 2 },
+      { status: CONTENT_STATUS.Fail },
       { where: { id: id }}
     );
     console.error('Something went wrong on getting content: ', error);
+  }
+}
+
+const extractResult = (data) => {
+  if (!data) {
+    throw new Error("Data is empty.");
+  }
+
+  try {
+    const result = {};
+
+    result.citations = JSON.stringify({
+      links: data.citations
+    });
+
+    const markdownText = data.choices[0].message.content;
+    const {Summary, Verdict} = extractJSONFromMarkdown(markdownText);
+
+    result.summary = Summary;
+    result.type = RESULT_TYPE[Verdict];
+
+    return result;
+  } catch (error) {
+    throw new Error(error);
   }
 }
 
