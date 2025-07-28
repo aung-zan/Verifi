@@ -33,6 +33,10 @@ This project is a web application that allows users to upload content and have i
 
 ## Usage
 
+### API Documentation
+
+The OpenAPI documentation for the `upload` service is available at `/doc/api` after starting the services.
+
 ### API Endpoints
 
 The `upload` service provides the following API endpoints:
