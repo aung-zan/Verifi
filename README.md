@@ -1,6 +1,6 @@
 # Verifi
 
-This project is a web application that allows users to upload content and have it checked. It consists of two main services: a Laravel-based API for handling user authentication and content management, and an Express.js service for content checking. The services are orchestrated using Docker Compose, with PostgreSQL as the database and RabbitMQ for messaging.
+This project is a API based application that allows users to upload content(text) and have it checked. It consists of two main services: a Laravel-based API for handling user authentication and content management, and an Express.js service for content checking. The services are orchestrated using Docker Compose, with PostgreSQL as the database and RabbitMQ for messaging.
 
 ## Services
 
