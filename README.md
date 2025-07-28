@@ -28,7 +28,7 @@ This project is a API based application that allows users to upload content(text
 2.  **Build and run the services:**
 
     ```bash
-    docker-compose up -d --build
+    docker compose up -d --build
     ```
 
 ## Usage
@@ -64,7 +64,7 @@ The `check` service has a single endpoint:
 You can run commands within the `upload` service container for tasks like database migrations and seeding:
 
 ```bash
-docker-compose exec upload php artisan migrate --seed
+docker compose exec laravel-app php artisan migrate --seed
 ```
 
 ## Development
@@ -74,5 +74,18 @@ The `upload` service includes a `dev` script in its `composer.json` to facilitat
 To start the development environment, run:
 
 ```bash
-docker-compose exec upload composer run dev
+docker compose exec laravel-app composer run dev
+```
+To run the test cases, first create test database:
+
+```bash
+docker compose exec -it postgres psql -U aungminzan -d verifi
+create database verifi_testing;
+exit;
+```
+
+Then run:
+
+```bash
+docker compose exec -it laravel-app php artisan test
 ```
