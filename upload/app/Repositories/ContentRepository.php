@@ -2,11 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\DBInterface;
+use App\Interfaces\RepositoryInterface;
 use App\Models\Content;
+use App\Repositories\Filters\ContentFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class ContentRepository implements DBInterface
+class ContentRepository implements RepositoryInterface
 {
     private $model;
 
@@ -20,11 +22,9 @@ class ContentRepository implements DBInterface
         $query = $this->model->query();
 
         // queries for filter and search.
-        foreach ($filter as $column => $value) {
-            $query = $query->where($column, $value);
-        }
+        $query = (new ContentFilter($filter))->apply($query);
 
-        return $query->get();
+        return $query->with('result')->get();
     }
 
     public function create(array $data): Content
@@ -38,7 +38,7 @@ class ContentRepository implements DBInterface
             ->firstOrFail();
     }
 
-    public function getWithUserId(int $id, int $userId): ?Content
+    public function getByUserId(int $id, int $userId): ?Content
     {
         return $this->model->where('id', $id)
             ->where('user_id', $userId)
