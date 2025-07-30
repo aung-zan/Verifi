@@ -68,7 +68,7 @@ class ContentService
      */
     public function getContentWithUserId(int $id, int $userId): ?Content
     {
-        return $this->db->getWithUserId($id, $userId);
+        return $this->db->getByUserId($id, $userId);
     }
 
     /**

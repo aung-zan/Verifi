@@ -3,6 +3,7 @@
 namespace App\Http\Requests\api;
 
 use App\Enums\ContentStatus;
+use App\Enums\ResultTypes;
 use Illuminate\Validation\Rule;
 
 class ContentListRequest extends BaseRequest
@@ -16,6 +17,7 @@ class ContentListRequest extends BaseRequest
     {
         return [
             'status' => ['sometimes', Rule::enum(ContentStatus::class)],
+            'type' => ['sometimes', Rule::enum(ResultTypes::class)],
         ];
     }
 }
