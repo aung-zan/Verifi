@@ -32,7 +32,7 @@ const getContent = async (msg, channel) => {
       { status: CONTENT_STATUS.Fail },
       { where: { id: id }}
     );
-    console.error('Something went wrong on getting content: ', error);
+    console.error(error);
   }
 }
 
