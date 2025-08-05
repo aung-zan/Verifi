@@ -20,7 +20,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:17
+        image: postgres:15-alpine
         env:
           POSTGRES_USER: 'aungminzan'
           POSTGRES_PASSWORD: 'password'
