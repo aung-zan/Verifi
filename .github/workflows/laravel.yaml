@@ -3,12 +3,20 @@ name: Laravel
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'upload/**'  # Only trigger on changes in upload directory
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'upload/**'
 
 jobs:
   laravel-tests:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./upload  # Set default working directory for all run steps
 
     services:
       pgsql:
@@ -45,7 +53,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('upload/**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
