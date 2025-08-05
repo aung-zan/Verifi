@@ -8,20 +8,24 @@ let payload = {
 };
 
 const verify = async (key, content) => {
-  headers.Authorization += key;
-  payload.messages = [
-    { role: 'user', content: process.env.PROMPT + content }
-  ];
+  try {
+    headers.Authorization += key;
+    payload.messages = [
+      { role: 'user', content: process.env.PROMPT + content }
+    ];
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify(payload)
-  });
+    const response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload)
+    });
 
-  const data = await response.json();
+    const data = await response.json();
 
-  return data;
+    return data;
+  } catch (error) {
+    throw new Error(`Something went wrong in fetching data: ${error}`);
+  }
 }
 
 module.exports = {
